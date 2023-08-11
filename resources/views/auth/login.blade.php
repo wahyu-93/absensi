@@ -38,6 +38,9 @@
                 <h4>Fill the form to log in</h4>
             </div>
             <div class="section mt-1 mb-5">
+                @if(session('errors'))
+                    <div class="alert alert-danger">{{ $errors }}</div>
+                @endif
                 <form action="{{ route('karyawan.login') }}" method="POST">
                     @csrf
                     <div class="form-group boxed">
