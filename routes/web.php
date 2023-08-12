@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use GuzzleHttp\Middleware;
@@ -25,4 +26,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::group(['prefix' => 'karyawan'], function(){
     Route::post('login', [AuthController::class, 'karyawanLogin'])->name('karyawan.login');
     Route::get('logout', [AuthController::class, 'karyawanLogout'])->name('karyawan.logout');
+    Route::get('absen',[AbsenController::class, 'create'])->name('absen');
 });
+
