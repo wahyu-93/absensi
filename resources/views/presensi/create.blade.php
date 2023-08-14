@@ -12,25 +12,52 @@
     </div>
 @endsection
 
-@section('content')
-    <div class="section full mt-2">
-        <div class="section-title">Title</div>
-        <div class="wide-block pt-2 pb-2">
-            <div id="webcam-capture"></div>
-        </div>
+<style>
+    #webcam-capture  video {
+        display: inline-block;
+        width: 100% !important;
+        margin: auto;
+        height: auto !important;
+        border-radius: 15px
+    }
+</style>
 
+
+@section('content')
+    <div class="row" style="margin-top : 70px; margin-left: 10px; margin-right: 10px">
+        <input type="hidden" name="lokasi" id="lokasi">
+        <div id="webcam-capture"></div>
+    </div>
+
+    <div class="row">
+        <button class="btn btn-primary btn-sm">Absen Masuk</button>
     </div>
 @endsection
 
 @push('my-script')
-<script>
+<script>    
     Webcam.set({
         height : 480,
         width : 640,
         image_format : 'jpeg',
-        jpeg_quality : 80
+        jpeg_quality : 100
     });
 
     Webcam.attach('#webcam-capture')
+    
+    const cam = document.getElementById('webcam-capture')
+    cam.style.margin = 'auto'
+
+    // lokasi
+    const lokasi = document.getElementById("lokasi");
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        lokasi.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+    function showPosition(position) {
+        lokasi.value = position.coords.latitude + "," + position.coords.longitude;
+    }
 </script>
 @endpush
